@@ -36,7 +36,7 @@ func main() {
 		testDuration = flag.Duration("test-duration", time.Minute,
 			"test duration")
 		testRetention = flag.Duration("test-retention", 5*time.Minute,
-			"retention period: will be passed to Prometheus as storage.local.retention")
+			"retention period: will be passed to Prometheus as storage.tsdb.retention")
 		maxDeltaRatio = flag.Float64("max-delta-ratio", 0.15,
 			"absolute deviation from expected value tolerated without query retry [0-1]")
 		maxQueryRetries = flag.Int("max-query-retries", 0,

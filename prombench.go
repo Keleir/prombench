@@ -277,19 +277,19 @@ func startExportersAdaptive(ctx context.Context, le loadgen.LoadExporter, firstP
 func getExtraArgs(cfg Config) []string {
 	extraArgs := append([]string{}, cfg.ExtraArgs...)
 	if cfg.TestRetention > 0 {
-		extraArgs = append(extraArgs, "-storage.local.retention",
+		extraArgs = append(extraArgs, "--storage.tsdb.retention",
 			fmt.Sprintf("%ds", int(cfg.TestRetention.Seconds())))
 	}
 	if len(extraArgs) > 0 {
 		prometheus.MustRegister(newExtraPrometheusArgsCollector(extraArgs, cfg.TestRetention))
 	}
-	return append(extraArgs, "-web.listen-address", cfg.PrometheusListenAddress)
+	return append(extraArgs, "--web.listen-address", cfg.PrometheusListenAddress)
 }
 
 func waitForPrometheus(ctx context.Context, instance string) bool {
 	queryUrl := "http://" + instance
 	// TODO make timeout configurable
-	endTime := time.Now().Add(time.Second * 10)
+	endTime := time.Now().Add(time.Second * 30)
 	for {
 		timeLeft := endTime.Sub(time.Now())
 		if timeLeft < 0 {

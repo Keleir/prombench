@@ -79,7 +79,7 @@ scrape_configs:
 }
 
 func (h *Harness) StartPrometheus(ctx context.Context, prompath string, promargs []string) context.CancelFunc {
-	vercmd := exec.Command(prompath, "-version")
+	vercmd := exec.Command(prompath, "--version")
 	output, err := vercmd.Output()
 	if err != nil {
 		log.Fatalf("Prometheus returned %v", err)
